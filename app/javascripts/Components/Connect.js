@@ -1,8 +1,7 @@
 /* eslint-env jquery, web3 */
 import React from 'react'
 import { Link } from 'react-router'
-import { Registry } from 'uport-lib'
-import { web3 } from '../web3setup.js'
+import { uport } from '../uportSetup.js'
 
 export default class Connect extends React.Component {
   constructor (props) {
@@ -11,80 +10,44 @@ export default class Connect extends React.Component {
     this.state = {
       address: null,
       error: null,
-      personaAttributes: null
-    }
-  }
-
-  componentDidUpdate () {
-    let self = this
-
-    if (this.state.address && !this.state.personaAttributes) {
-
-      const personaRegistry = new Registry({ web3: web3.currentProvider})
-
-      personaRegistry.getPublicProfile(this.state.address).then(profile => {
-        console.log(profile)
-        self.setState({ personaAttributes: profile })
-        $('#attributeName').text(profile.name)
-        if (profile.image !== undefined) {
-          let imgUrl = 'https://ipfs.infura.io' + profile.image.contentUrl
-          $('#avatarImg').attr('src', imgUrl)
-          $('#avatarDiv').show()
-        }
-        if (profile.description !== undefined) {
-          $('#attributeDescriptionRow').show()
-          $('#attributeDescription').text(profile.description)
-        }
-
-        if (profile.location !== undefined) {
-          $('#attributeLocationRow').show()
-          $('#attributeLocation').text(profile.location)
-        }
-      })
-
-      $('#connect').hide()
-      $('#address').text(this.state.address)
-      $('#success').show()
-    }
-    if (this.state.error) {
-      $('#connect').hide()
-      $('#error').text(this.state.error)
-      $('#errorDiv').show()
+      credentials: null
     }
   }
 
   connect () {
     let self = this
-    web3.eth.getCoinbase(function (error, address) {
-      if (error) { throw error }
-      web3.eth.defaultAccount = address
-      self.setState({address: address})
+    uport.requestCredentials().then(credentials => {
+      self.setState({address: credentials.address,
+                     credentials: credentials})
+                     console.log(credentials)
+    },
+    (error) => {
+      self.setState({error})
     })
   }
 
   render () {
-    let attributesTable = (
+    console.log(this.state)
+    const credentials = this.state.credentials || {}
+
+    let attributesTable = credentials ? (
       <table style={{color: '#fff'}}>
         <tbody>
           <tr>
             <td style={{textAlign: 'right'}}><strong>uPort Id:</strong></td>
-            <td><span id='address' /></td>
+            <td>{ this.state.address }</td>
           </tr>
           <tr>
             <td style={{textAlign: 'right'}}><strong>Name:</strong></td>
-            <td><span id='attributeName' /></td>
+            <td>{credentials.name}</td>
           </tr>
-          <tr id='attributeDescriptionRow' style={{display: 'none'}}>
+          <tr id='attributeDescriptionRow'>
             <td style={{textAlign: 'right'}}><strong>I am:</strong></td>
-            <td><span id='attributeDescription' /></td>
-          </tr>
-          <tr id='attributeLocationRow' style={{display: 'none'}}>
-            <td style={{textAlign: 'right'}}><strong>Location:</strong></td>
-            <td><span id='attributeLocation' /></td>
+            <td>{credentials.description}</td>
           </tr>
         </tbody>
       </table>
-    )
+    ) : null
 
     return (
       <div className='container centered' style={{maxWidth: '480px'}}>
@@ -93,19 +56,22 @@ export default class Connect extends React.Component {
             title='uPort Logo'
             style={{maxWidth: '90px', margin: '20px auto 40px', display: 'block'}} />
         </Link>
-        <div id='connect'>
+        { !this.state.address
+        ? <div id='connect'>
           <button className='btn bigger' onClick={this.connect} type='submit'>Connect uPort</button>
         </div>
-        <div id='success' style={{display: 'none'}}>
+        : <div id='success'>
           <h3>Success! You have connected your uPort identity.</h3>
           <table className='persona'>
             <tbody>
               <tr>
-                <td className='avatar'>
-                  <div id='avatarDiv' style={{display: 'none'}}>
-                    <img id='avatarImg' style={{maxWidth: '200px'}} />
+                { credentials.image
+                ? <td className='avatar'>
+                  <div id='avatarDiv'>
+                    <img id='avatarImg' style={{maxWidth: '200px'}} src={'https://ipfs.infura.io' + credentials.image.contentUrl} />
                   </div>
                 </td>
+                : null }
                 <td>{attributesTable}</td>
               </tr>
             </tbody>
@@ -114,10 +80,13 @@ export default class Connect extends React.Component {
             <button className='btn bigger' type='submit'>Continue</button>
           </Link>
         </div>
-        <div id='errorDiv' style={{display: 'none'}}>
+        }
+        {this.state.error
+        ? <div id='errorDiv'>
           <h3>Error! You have NOT connected your uPort identity.</h3>
           <p><strong>Error:</strong><span id='error' style={{display: 'inline-block', marginLeft: '10px'}} /> </p>
         </div>
+        : null }
       </div>
     )
   }

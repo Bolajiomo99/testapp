@@ -1,7 +1,7 @@
 /* eslint-env jquery, web3 */
 import React from 'react'
 import { Link } from 'react-router'
-import { web3 } from '../web3setup.js'
+import { web3 } from '../uportSetup.js'
 
 export default class Sign extends React.Component {
   constructor (props) {
