@@ -2,7 +2,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 import { Registry } from 'uport-lib'
-import { web3 } from '../web3setup.js'
+import { testAppUport, web3 } from '../web3setup.js'
 
 export default class Connect extends React.Component {
   constructor (props) {

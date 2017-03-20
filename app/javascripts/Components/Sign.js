@@ -3,6 +3,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import { web3 } from '../web3setup.js'
 
+
 export default class Sign extends React.Component {
   constructor (props) {
     super(props)

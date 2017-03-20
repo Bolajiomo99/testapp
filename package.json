@@ -1,6 +1,6 @@
 {
   "name": "uport-testapp",
-  "version": "1.3.1",
+  "version": "1.2.0",
   "description": "uPort Test App",
   "main": "serversa.js",
   "scripts": {
@@ -8,9 +8,7 @@
     "webpack": "webpack --progress --colors",
     "webpackwatch": "webpack --progress --colors --watch",
     "start": "node server/index.js",
-    "postinstall": "npm run webpack",
-    "deploy-develop": "node_modules/.bin/surge --domain https://testapp.uport.space build/",
-    "deploy": "node_modules/.bin/surge --domain https://testapp.uport.me build/"
+    "postinstall": "npm run webpack"
   },
   "license": "ISC",
   "repository": {
@@ -65,15 +63,16 @@
     "react-router": "^2.5.2",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
-    "uport-lib": "2.1.1",
+    "uport-connect": "^0.5.3",
+    "uport-lib": "^2.0.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.2"
   },
   "devDependencies": {
+    "concat-stream": "^1.6.0",
     "react-hot-loader": "^1.3.0",
-    "surge": "^0.18.0",
     "webpack-dev-server": "^1.14.1"
   }
 }

@@ -69,7 +69,7 @@ module.exports = function (app) {
   app.set('GETH_ENDPOINT',GETH_ENDPOINT);
   app.set('NETWORK_ID',NETWORK_ID);
 
-  var PORT = process.env.PORT || 3000;
+  var PORT = process.env.PORT || 3777;
   app.set('version',  packageJSON.version);
   //app.set('host',     HOST);
   app.set('port',     PORT);
