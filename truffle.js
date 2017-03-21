@@ -1,4 +1,5 @@
 var TestRPC = require("ethereumjs-testrpc");
+var path = require("path");
 
 module.exports = {
   networks: {
@@ -16,5 +17,6 @@ module.exports = {
       port: 8545,
       network_id: "3"
     }
-  }
+  },
+  contracts_build_directory: path.join(__dirname, "src", "contracts")
 };
