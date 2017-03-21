@@ -605,11 +605,11 @@ ul.no-list {
     padding-left: 50px;
     width: 0;
     overflow: hidden;
-    background: url("../img/uPort-logo.svg") no-repeat center center; }
+    background: url("../../public/images/uPort-logo.svg") no-repeat center center; }
     @media (min-width: 1100px) {
       .signup #brand i,
       .signup #brand b {
-        background-image: url("../img/uPort-logo.svg");
+        background-image: url("../../public/images/uPort-logo.svg");
         padding-left: 60px;
         height: 60px; } }
 
@@ -926,7 +926,7 @@ button {
     font-weight: 700;
     padding: 0 0 20px; }
   .signup .heroshot-image {
-    background-image: url("../img/home-bg.jpg");
+    background-image: url("../../public/images/home-bg.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 600px; }
@@ -986,7 +986,7 @@ button {
   position: absolute;
   top: 0;
   left: 0;
-  background-image: url("../img/home-bg.jpg");
+  background-image: url("../../public/images/home-bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   color: #fff; }
@@ -1087,5 +1087,3 @@ form.error.animated ol {
   -webkit-animation: shake 0.5s;
   -moz-animation: shake 0.5s;
   animation: shake 0.5s; }
-
-/*# sourceMappingURL=screen.css.map*/

@@ -1,9 +1,8 @@
-/* eslint-env jquery, web3 */
-import React from 'react'
+import React, { Component } from 'react';
 import { Link } from 'react-router'
 import { web3 } from '../uportSetup.js'
 
-export default class Sign extends React.Component {
+class Sign extends Component {
   constructor (props) {
     super(props)
     let self = this
@@ -24,7 +23,8 @@ export default class Sign extends React.Component {
     }
   }
 
-  setStatus () {
+  setStatus (e) {
+    e.preventDefault();
     let self = this
     let statusText = this.refs.statusInput.value
     console.log('set status:' + statusText)
@@ -47,23 +47,14 @@ export default class Sign extends React.Component {
       // check again in one sec.
       setTimeout(function () {
         web3.eth.getTransaction(txHash, function (e, r) {
+          if(r==null) r={blockNumber: null} //Some nodes do not return pending tx
           self.waitForMined(txHash, r)
         })
       }, 1000)
     }
   }
-  componentDidUpdate () {
-    if (this.state.tx) {
-      $('#qr').hide()
-      $('#tx').text(this.state.tx)
-      $('#success').show()
-    }
-    if (this.state.error) {
-      $('#qr').hide()
-      $('#error').text(this.state.error)
-      $('#errorDiv').show()
-    }
-  }
+
+
   render () {
     return (
       <div className='container centered' style={{maxWidth: '400px'}}>
@@ -76,7 +67,7 @@ export default class Sign extends React.Component {
           Your current Status on the Blockchain:
           <h3 id='currentStatus'>{this.state.statusText}</h3>
           <br />
-          <form action='javascript:void(0);'>
+          <form>
             <ol className='fields'>
               <li>
                 <label>New Status:</label>
@@ -88,17 +79,23 @@ export default class Sign extends React.Component {
             </ol>
           </form>
         </div>
-        <div id='success' style={{display: 'none'}}>
+
+        {this.state.tx
+        ? <div id='success' style={{display: 'none'}}>
           <h3>Success! You have set your status</h3>
           <p><strong>Tx:</strong><span id='tx' style={{display: 'inline-block', marginLeft: '10px'}} /></p>
         </div>
-        <div id='errorDiv' style={{display: 'none'}}>
+        : null }
+
+        {this.state.error
+        ? <div id='errorDiv'>
           <h3>Error! You have NOT set your status.</h3>
-          <p><strong>Error:</strong><span id='error' style={{display: 'inline-block', marginLeft: '10px'}} /></p>
+          <p><strong>Error:</strong><span id='error' style={{display: 'inline-block', marginLeft: '10px'}} /> </p>
         </div>
+        : null }
       </div>
     )
   }
 }
 
-Sign.propTypes = { web3: React.PropTypes.object }
+export default Sign;

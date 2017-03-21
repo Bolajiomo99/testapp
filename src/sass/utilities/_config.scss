@@ -16,7 +16,7 @@ $font-weight--bold       : 700;
 $font-weight--ultra-bold : 800;
 
 // Logo Styles
-$logo-mark: '../images/uPort-logo.svg';
+$logo-mark: '../../public/images/uPort-logo.svg';
 $logo-mark--width: 40px;
 $logo-mark--height: 54px;
 $logo-mark--outer-width: 50px;
@@ -103,7 +103,7 @@ $br--round      : 50%;
 $trns-duration  : .3s;
 
 // Path to Assets
-$path--rel      : "../images/";
+$path--rel      : "../../public/images/";
 
 // Breakpoints
 $brkpoint-xs : 1px;

@@ -1,9 +1,8 @@
-/* eslint-env jquery, web3 */
-import React from 'react'
+import React, { Component } from 'react';
 import { Link } from 'react-router'
 import { uport } from '../uportSetup.js'
 
-export default class Connect extends React.Component {
+class Connect extends Component {
   constructor (props) {
     super(props)
     this.connect = this.connect.bind(this)
@@ -18,8 +17,9 @@ export default class Connect extends React.Component {
     let self = this
     uport.requestCredentials().then(credentials => {
       self.setState({address: credentials.address,
-                     credentials: credentials})
-                     console.log(credentials)
+                     credentials: credentials,
+                     error: null})
+      console.log(credentials)
     },
     (error) => {
       self.setState({error})
@@ -68,7 +68,7 @@ export default class Connect extends React.Component {
                 { credentials.image
                 ? <td className='avatar'>
                   <div id='avatarDiv'>
-                    <img id='avatarImg' style={{maxWidth: '200px'}} src={'https://ipfs.infura.io' + credentials.image.contentUrl} />
+                    <img id='avatarImg' alt="p" style={{maxWidth: '200px'}} src={'https://ipfs.infura.io' + credentials.image.contentUrl} />
                   </div>
                 </td>
                 : null }
@@ -84,7 +84,11 @@ export default class Connect extends React.Component {
         {this.state.error
         ? <div id='errorDiv'>
           <h3>Error! You have NOT connected your uPort identity.</h3>
-          <p><strong>Error:</strong><span id='error' style={{display: 'inline-block', marginLeft: '10px'}} /> </p>
+          <p><strong>Error:</strong>
+            <span id='error' style={{display: 'inline-block', marginLeft: '10px'}} >
+            {this.state.error.message}
+            </span>
+          </p>
         </div>
         : null }
       </div>
@@ -92,4 +96,4 @@ export default class Connect extends React.Component {
   }
 }
 
-Connect.propTypes = { web3: React.PropTypes.object }
+export default Connect;
