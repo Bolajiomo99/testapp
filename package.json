@@ -1,6 +1,6 @@
 {
   "name": "testapp",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "uPort Test App",
   "private": true,
   "dependencies": {
@@ -24,6 +24,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "truffle": "./node_modules/.bin/truffle"
+    "truffle": "./node_modules/.bin/truffle",
+    "deploy": "npm run build && npm run deploy-to-s3 testapp.uport.me",
+    "deploy-test": "npm run build && npm run deploy-to-s3 testapp.uport.space",
+    "deploy-to-s3": "node_modules/.bin/s3-deploy './build/**' --cwd './build/' --region us-west-2 --bucket"
   }
 }
