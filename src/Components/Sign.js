@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router'
 import { web3 } from '../uportSetup.js'
 
-<<<<<<< HEAD:app/javascripts/Components/Sign.js
-
-export default class Sign extends React.Component {
-=======
 class Sign extends Component {
->>>>>>> release/1.4.0:src/Components/Sign.js
   constructor (props) {
     super(props)
     let self = this
