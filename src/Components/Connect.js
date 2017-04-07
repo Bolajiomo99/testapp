@@ -19,7 +19,7 @@ class Connect extends Component {
       self.setState({address: credentials.address,
                      credentials: credentials,
                      error: null})
-      console.log(credentials)
+      //console.log(credentials)
     },
     (error) => {
       self.setState({error})
@@ -27,7 +27,7 @@ class Connect extends Component {
   }
 
   render () {
-    console.log(this.state)
+    //console.log(this.state)
     const credentials = this.state.credentials || {}
 
     let attributesTable = credentials ? (
