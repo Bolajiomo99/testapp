@@ -1103,9 +1103,9 @@ big.js@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/big.js/-/big.js-3.1.3.tgz#4cada2193652eb3ca9ec8e55c9015669c9806978"
 
-"bignumber.js@git+https://github.com/debris/bignumber.js.git#94d7146671b9719e00a09c29b01a691bc85048c2", "bignumber.js@git+https://github.com/debris/bignumber.js.git#master":
+"bignumber.js@git+https://github.com/debris/bignumber.js#master", "bignumber.js@git+https://github.com/debris/bignumber.js.git#94d7146671b9719e00a09c29b01a691bc85048c2":
   version "2.0.7"
-  resolved "git+https://github.com/debris/bignumber.js.git#94d7146671b9719e00a09c29b01a691bc85048c2"
+  resolved "git+https://github.com/debris/bignumber.js#94d7146671b9719e00a09c29b01a691bc85048c2"
 
 bignumber.js@~2.1.4:
   version "2.1.4"
@@ -2731,14 +2731,14 @@ ethereumjs-testrpc@^3.0.3:
     web3-provider-engine "~8.1.0"
     yargs "~3.29.0"
 
-ethereumjs-tx@1.1.2:
+ethereumjs-tx@1.1.2, ethereumjs-tx@^1.0.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/ethereumjs-tx/-/ethereumjs-tx-1.1.2.tgz#c151477c6205d1860600e29108c3eacae97e29fa"
   dependencies:
     ethereum-common "^0.0.17"
     ethereumjs-util "^4.5.0"
 
-ethereumjs-tx@^1.0.0, ethereumjs-tx@^1.2.0:
+ethereumjs-tx@^1.2.0:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/ethereumjs-tx/-/ethereumjs-tx-1.2.5.tgz#ed36d7ffeb97bc889c61eef1ab76f47a613d8286"
   dependencies:
@@ -5449,11 +5449,7 @@ micromatch@^2.1.5, micromatch@^2.3.11:
     parse-glob "^3.0.4"
     regex-cache "^0.4.2"
 
-mime-db@1.x.x, "mime-db@>= 1.24.0 < 2":
-  version "1.27.0"
-  resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.27.0.tgz#820f572296bbd20ec25ed55e5b5de869e5436eb1"
-
-mime-db@~1.26.0:
+mime-db@1.x.x, "mime-db@>= 1.24.0 < 2", mime-db@~1.26.0:
   version "1.26.0"
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.26.0.tgz#eaffcd0e4fc6935cf8134da246e2e6c35305adff"
 
@@ -7041,7 +7037,7 @@ read-pkg@^2.0.0:
     normalize-package-data "^2.3.2"
     path-type "^2.0.0"
 
-readable-stream@1.0, readable-stream@^1.0.33, readable-stream@~1.0.15, readable-stream@~1.0.17, readable-stream@~1.0.27-1:
+readable-stream@1.0, readable-stream@~1.0.15, readable-stream@~1.0.17, readable-stream@~1.0.27-1:
   version "1.0.34"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-1.0.34.tgz#125820e34bc842d2f2aaafafe4c2916ee32c157c"
   dependencies:
@@ -7050,7 +7046,7 @@ readable-stream@1.0, readable-stream@^1.0.33, readable-stream@~1.0.15, readable-
     isarray "0.0.1"
     string_decoder "~0.10.x"
 
-readable-stream@1.1.x, readable-stream@^1.1.14, readable-stream@~1.1.9:
+readable-stream@1.1.x, readable-stream@^1.0.33, readable-stream@^1.1.14, readable-stream@~1.1.9:
   version "1.1.14"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-1.1.14.tgz#7cf4c54ef648e3813084c636dd2079e166c081d9"
   dependencies:
@@ -7278,11 +7274,11 @@ resolve-from@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-1.0.1.tgz#26cbfe935d1aeeeabb29bc3fe5aeb01e93d44226"
 
-resolve@1.1.7, resolve@~1.1.7:
+resolve@1.1.7, resolve@^1.1.6, resolve@~1.1.7:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.1.7.tgz#203114d82ad2c5ed9e8e0411b3932875e889e97b"
 
-resolve@^1.1.5, resolve@^1.1.6, resolve@^1.2.0:
+resolve@^1.1.5, resolve@^1.2.0:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.3.2.tgz#1f0442c9e0cbb8136e87b9305f932f46c7f28235"
   dependencies:
@@ -8537,7 +8533,7 @@ update-notifier@^1.0.2:
     semver-diff "^2.0.0"
     xdg-basedir "^2.0.0"
 
-uport-connect@^0.5.3:
+uport-connect@0.5.5:
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/uport-connect/-/uport-connect-0.5.5.tgz#44f5fd8a6a10a0d98833a15e9f4f9a8daa3a48ae"
   dependencies:
