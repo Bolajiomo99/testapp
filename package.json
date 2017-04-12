@@ -1,6 +1,6 @@
 {
   "name": "testapp",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "uPort Test App",
   "private": true,
   "dependencies": {
