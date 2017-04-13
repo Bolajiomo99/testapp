@@ -19,7 +19,7 @@ class Connect extends Component {
       self.setState({address: credentials.address,
                      credentials: credentials,
                      error: null})
-      //console.log(credentials)
+      console.log(credentials)
     },
     (error) => {
       self.setState({error})
@@ -42,8 +42,8 @@ class Connect extends Component {
             <td>{credentials.name}</td>
           </tr>
           <tr id='attributeDescriptionRow'>
-            <td style={{textAlign: 'right'}}><strong>I am:</strong></td>
-            <td>{credentials.description}</td>
+            <td style={{textAlign: 'right'}}><strong>Network:</strong></td>
+            <td>{credentials.network}</td>
           </tr>
         </tbody>
       </table>
