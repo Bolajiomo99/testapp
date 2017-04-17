@@ -27,6 +27,7 @@
     "eject": "react-scripts eject",
     "_truffle-migrate": "./node_modules/.bin/truffle migrate --network ",
     "truffle-migrate-ropsten": "npm run _truffle-migrate ropsten",
+    "truffle-migrate-rinkeby": "npm run _truffle-migrate rinkeby",
     "truffle-migrate-kovan": "npm run _truffle-migrate kovan",
     "deploy": "npm run build-css && npm run build && npm run deploy-to-s3 testapp.uport.me",
     "deploy-test": "npm run build-css && npm run build && npm run deploy-to-s3 testapp.uport.space",
