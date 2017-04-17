@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
-import { uport } from '../uportSetup.js'
+import { uport, changeUportNetwork } from '../uportSetup.js'
 
 class Connect extends Component {
   constructor (props) {
@@ -20,6 +20,8 @@ class Connect extends Component {
                      credentials: credentials,
                      error: null})
       console.log(credentials)
+      changeUportNetwork(credentials.network)
+      
     },
     (error) => {
       self.setState({error})

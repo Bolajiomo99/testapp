@@ -10,6 +10,8 @@ class Sign extends Component {
     let StatusContract = contract(require('../contracts/Status.json'));
     StatusContract.setProvider(web3.currentProvider)
 
+    console.log(web3.currentProvider);
+
     let address = web3.eth.defaultAccount
     console.log("web3.eth.defaultAccount:"+address);
 
