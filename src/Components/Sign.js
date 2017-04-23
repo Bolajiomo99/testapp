@@ -32,14 +32,11 @@ class Sign extends Component {
   }
 
   getStatus(address){
+    console.log("getStatus for:"+address)
     let self = this
     this.setState({statusText: '(reading status from the blockchain)'});
     this.state.statusContractInstance.getStatus.call(address)
-    .then( (error, statusText) => {
-        if (error) {
-          console.log(error);
-          throw error;
-        }
+    .then( (statusText) => {
         console.log("statusText from the blockchain:"+statusText)
         if(statusText === undefined){
           statusText="(no status on the blockchain)"

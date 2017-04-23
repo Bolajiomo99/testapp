@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
-import { uport, changeUportNetwork } from '../uportSetup.js'
+import { uport, web3,changeUportNetwork } from '../uportSetup.js'
 
 class Connect extends Component {
   constructor (props) {
@@ -21,7 +21,8 @@ class Connect extends Component {
                      error: null})
       console.log(credentials)
       changeUportNetwork(credentials.network)
-      
+      web3.eth.defaultAccount=credentials.address;
+
     },
     (error) => {
       self.setState({error})
