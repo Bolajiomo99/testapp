@@ -17,9 +17,6 @@ class Connect extends Component {
   connect () {
     let self = this
     uport.requestCredentials().then(credentials => {
-      self.setState({address: credentials.address,
-                     credentials: credentials,
-                     error: null})
       console.log(credentials)
       changeUportNetwork(credentials.network)
       if(isMNID(credentials.address)){
@@ -27,6 +24,9 @@ class Connect extends Component {
       }else{
         web3.eth.defaultAccount=credentials.address;
       }
+      self.setState({address: web3.eth.defaultAccount,
+                     credentials: credentials,
+                     error: null})
 
     },
     (error) => {
@@ -52,6 +52,10 @@ class Connect extends Component {
           <tr id='attributeDescriptionRow'>
             <td style={{textAlign: 'right'}}><strong>Network:</strong></td>
             <td>{credentials.network}</td>
+          </tr>
+          <tr id='attributeDescriptionRow'>
+            <td style={{textAlign: 'right'}}><strong>Undecoded Address:</strong></td>
+            <td>{credentials.address}</td>
           </tr>
         </tbody>
       </table>
