@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
 import { uport, web3,changeUportNetwork } from '../uportSetup.js'
+import { isMNID, decode } from 'mnid'
 
 class Connect extends Component {
   constructor (props) {
@@ -21,7 +22,11 @@ class Connect extends Component {
                      error: null})
       console.log(credentials)
       changeUportNetwork(credentials.network)
-      web3.eth.defaultAccount=credentials.address;
+      if(isMNID(credentials.address)){
+        web3.eth.defaultAccount=decode(credentials.address).address;
+      }else{
+        web3.eth.defaultAccount=credentials.address;
+      }
 
     },
     (error) => {
