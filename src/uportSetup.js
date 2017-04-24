@@ -1,8 +1,18 @@
 import { Connect } from 'uport-connect'
 
-const uport = new Connect('uPort TestApp', {
-    clientId: '0xf1cac4c44ec5385a20f65f60ca5481b89e3d4a0e'
-  }
-);
-const web3 = uport.getWeb3()
-export { web3, uport }
+let uport;
+let web3;
+
+function changeUportNetwork(network = 'ropsten'){
+  console.log("Changing Uport Network to:"+network);
+  uport = new Connect('uPort TestApp', {
+      clientId: '0xf1cac4c44ec5385a20f65f60ca5481b89e3d4a0e',
+      network: network
+    }
+  );
+  web3 = uport.getWeb3()
+}
+
+changeUportNetwork();
+
+export { web3, uport, changeUportNetwork }

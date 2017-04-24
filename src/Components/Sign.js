@@ -1,26 +1,49 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
 import { web3 } from '../uportSetup.js'
+import contract from 'truffle-contract';
 
 class Sign extends Component {
   constructor (props) {
     super(props)
     let self = this
-    let statusContract = web3.eth.contract([{'constant': false, 'inputs': [{'name': 'status', 'type': 'string'}], 'name': 'updateStatus', 'outputs': [], 'type': 'function'}, {'constant': false, 'inputs': [{'name': 'addr', 'type': 'address'}], 'name': 'getStatus', 'outputs': [{'name': '', 'type': 'string'}], 'type': 'function'}])
-    let status = statusContract.at('0xB42E70a3c6dd57003f4bFe7B06E370d21CDA8087')
+    let StatusContract = contract(require('../contracts/Status.json'));
+    StatusContract.setProvider(web3.currentProvider)
+
+    console.log(web3.currentProvider);
+
     let address = web3.eth.defaultAccount
-    status.getStatus.call(address, function (error, statusText) {
-      if (error) { throw error }
-      self.setState({statusText: statusText})
-    })
+    console.log("web3.eth.defaultAccount:"+address);
+
+    let statusContractInstance;
+    StatusContract.deployed().then( (instance) => {
+      statusContractInstance = instance;
+      console.log("statusContractInstance.address:"+statusContractInstance.address);
+      self.setState({statusContractInstance: statusContractInstance})
+      self.getStatus(address);
+    });
+
     this.setStatus = this.setStatus.bind(this)
-    this.waitForMined = this.waitForMined.bind(this)
     this.state = {
-      status: status,
       tx: null,
       error: null,
       statusText: null
     }
+  }
+
+  getStatus(address){
+    console.log("getStatus for:"+address)
+    let self = this
+    this.setState({statusText: '(reading status from the blockchain)'});
+    this.state.statusContractInstance.getStatus.call(address)
+    .then( (statusText) => {
+        console.log("statusText from the blockchain:"+statusText)
+        if(statusText === undefined){
+          statusText="(no status on the blockchain)"
+        }
+        self.setState({statusText: statusText})
+    })
+
   }
 
   setStatus (e) {
@@ -30,30 +53,12 @@ class Sign extends Component {
     console.log('set status:' + statusText)
     this.setState({statusText: '(updating to '+statusText + ')'})
 
-    this.state.status.updateStatus(statusText, function (err, txHash) {
-      console.log(err, txHash)
-      self.setState({tx: txHash})
-      self.waitForMined(txHash, {blockNumber: null})
+    this.state.statusContractInstance.updateStatus(statusText, {from: web3.eth.defaultAccount}).then( (txReceipt) => {
+      console.log(txReceipt)
+      self.setState({tx: txReceipt.tx})
+      self.getStatus(web3.eth.defaultAccount);
     })
   }
-  waitForMined (txHash, res) {
-    let self = this
-    if (res.blockNumber) {
-      self.state.status.getStatus.call(web3.eth.defaultAccount, function (e, r) {
-        self.setState({statusText: r})
-      })
-    } else {
-      console.log('not mined yet.')
-      // check again in one sec.
-      setTimeout(function () {
-        web3.eth.getTransaction(txHash, function (e, r) {
-          if(r==null) r={blockNumber: null} //Some nodes do not return pending tx
-          self.waitForMined(txHash, r)
-        })
-      }, 1000)
-    }
-  }
-
 
   render () {
     return (
@@ -81,16 +86,16 @@ class Sign extends Component {
         </div>
 
         {this.state.tx
-        ? <div id='success' style={{display: 'none'}}>
+        ? <div id='success'>
           <h3>Success! You have set your status</h3>
-          <p><strong>Tx:</strong><span id='tx' style={{display: 'inline-block', marginLeft: '10px'}} /></p>
+          <p><strong>Tx:</strong><span id='tx' style={{display: 'inline-block', marginLeft: '10px'}} />{this.state.tx}</p>
         </div>
         : null }
 
         {this.state.error
         ? <div id='errorDiv'>
           <h3>Error! You have NOT set your status.</h3>
-          <p><strong>Error:</strong><span id='error' style={{display: 'inline-block', marginLeft: '10px'}} /> </p>
+          <p><strong>Error:</strong><span id='error' style={{display: 'inline-block', marginLeft: '10px'}} />{this.state.error}</p>
         </div>
         : null }
       </div>

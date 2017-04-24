@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
-import { uport } from '../uportSetup.js'
+import { uport, web3,changeUportNetwork } from '../uportSetup.js'
+import { isMNID, decode } from 'mnid'
 
 class Connect extends Component {
   constructor (props) {
@@ -16,10 +17,17 @@ class Connect extends Component {
   connect () {
     let self = this
     uport.requestCredentials().then(credentials => {
-      self.setState({address: credentials.address,
+      console.log(credentials)
+      changeUportNetwork(credentials.network)
+      if(isMNID(credentials.address)){
+        web3.eth.defaultAccount=decode(credentials.address).address;
+      }else{
+        web3.eth.defaultAccount=credentials.address;
+      }
+      self.setState({address: web3.eth.defaultAccount,
                      credentials: credentials,
                      error: null})
-      //console.log(credentials)
+
     },
     (error) => {
       self.setState({error})
@@ -42,8 +50,12 @@ class Connect extends Component {
             <td>{credentials.name}</td>
           </tr>
           <tr id='attributeDescriptionRow'>
-            <td style={{textAlign: 'right'}}><strong>I am:</strong></td>
-            <td>{credentials.description}</td>
+            <td style={{textAlign: 'right'}}><strong>Network:</strong></td>
+            <td>{credentials.network}</td>
+          </tr>
+          <tr id='attributeDescriptionRow'>
+            <td style={{textAlign: 'right'}}><strong>Undecoded Address:</strong></td>
+            <td>{credentials.address}</td>
           </tr>
         </tbody>
       </table>

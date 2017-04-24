@@ -1,3 +1,13 @@
+//HD Wallet for keyless servers (infura)
+var HDWalletProvider = require("truffle-hdwallet-provider");
+function getNmemonic(){
+  try{
+    return require('fs').readFileSync("./seed", "utf8").trim();
+  } catch(err){
+    return "";
+  }
+}
+
 var TestRPC = require("ethereumjs-testrpc");
 var path = require("path");
 
@@ -13,9 +23,16 @@ module.exports = {
       network_id: "*",
     },
     ropsten:{
-      host: "ropsten.infura.io",
-      port: 8545,
+      provider: new HDWalletProvider(getNmemonic(), "https://ropsten.infura.io/",0),
       network_id: "3"
+    },
+    rinkeby:{
+      provider: new HDWalletProvider(getNmemonic(), "https://rinkeby.infura.io",0),
+      network_id: "4"
+    },
+    kovan:{
+      provider: new HDWalletProvider(getNmemonic(), "https://kovan.infura.io/",0),
+      network_id: "42"
     }
   },
   contracts_build_directory: path.join(__dirname, "src", "contracts")
